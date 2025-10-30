@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/gestures.dart';
 
 import '../../config/theme.dart';
 import '../../core/utils/validators.dart';
@@ -24,7 +25,8 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    final isArabic = context.watch<LanguageProvider>().locale.languageCode == 'ar';
+    final isArabic =
+        context.watch<LanguageProvider>().locale.languageCode == 'ar';
     return Scaffold(
       body: Stack(
         children: [
@@ -37,12 +39,6 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
           ),
-          // Language switcher (top-right)
-          const Positioned(
-            right: 12,
-            top: 50,
-            child: LanguageSwitcher(iconOnly: true),
-          ),
           // Content card + feature section
           Center(
             child: SingleChildScrollView(
@@ -50,16 +46,21 @@ class _SignupScreenState extends State<SignupScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const SizedBox(height: 100),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 420),
                       decoration: BoxDecoration(
-                        color: AppColors.cardBg.withOpacity(0.7),
+                        color: AppColors.cardBg.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(color: AppColors.borderColor),
                         boxShadow: const [
-                          BoxShadow(color: Colors.black26, blurRadius: 20, spreadRadius: 2),
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 20,
+                            spreadRadius: 2,
+                          ),
                         ],
                       ),
                       padding: const EdgeInsets.all(32),
@@ -68,9 +69,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            // Logo
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: Image.asset(
+                                'assets/images/logo1.png',
+                                height: 110,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                             // Brand name with gradient
                             ShaderMask(
-                              shaderCallback: (bounds) => AppColors.primaryGradient.createShader(bounds),
+                              shaderCallback: (bounds) => AppColors
+                                  .primaryGradient
+                                  .createShader(bounds),
                               child: Text(
                                 isArabic ? 'ستريميفاي برو' : 'Streamify Pro',
                                 style: AppTypography.heading1.copyWith(
@@ -84,29 +96,11 @@ class _SignupScreenState extends State<SignupScreen> {
                             const SizedBox(height: 8),
                             // Tagline
                             Text(
-                              isArabic ? 'وجهتك النهائية للترفيه' : 'Your Ultimate Entertainment Hub',
+                              isArabic
+                                  ? 'وجهتك النهائية للترفيه'
+                                  : 'Your Ultimate Entertainment Hub',
                               style: AppTypography.bodyText.copyWith(
                                 fontSize: 14,
-                                color: AppColors.textSecondary,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 32),
-                            // Welcome message
-                            Text(
-                              isArabic ? 'ابدأ رحلتك' : 'Join Us Today',
-                              style: AppTypography.heading1.copyWith(
-                                fontSize: 32,
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.textPrimary,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              isArabic ? 'أنشئ حسابك وابدأ الاستمتاع' : 'Create your account and start streaming',
-                              style: AppTypography.bodyText.copyWith(
-                                fontSize: 15,
                                 color: AppColors.textSecondary,
                               ),
                               textAlign: TextAlign.center,
@@ -125,10 +119,16 @@ class _SignupScreenState extends State<SignupScreen> {
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: _usernameController,
-                              style: const TextStyle(color: AppColors.textPrimary),
+                              style: const TextStyle(
+                                color: AppColors.textPrimary,
+                              ),
                               decoration: InputDecoration(
-                                hintText: isArabic ? 'أدخل اسم المستخدم' : 'Enter your username',
-                                hintStyle: TextStyle(color: AppColors.textMuted.withOpacity(0.6)),
+                                hintText: isArabic
+                                    ? 'أدخل اسم المستخدم'
+                                    : 'Enter your username',
+                                hintStyle: TextStyle(
+                                  color: AppColors.textMuted.withOpacity(0.6),
+                                ),
                                 filled: true,
                                 fillColor: AppColors.cardBg.withOpacity(0.8),
                                 border: OutlineInputBorder(
@@ -141,9 +141,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: AppColors.accentPrimary, width: 2),
+                                  borderSide: BorderSide(
+                                    color: AppColors.accentPrimary,
+                                    width: 2,
+                                  ),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
                               ),
                               validator: Validators.required,
                             ),
@@ -161,10 +167,16 @@ class _SignupScreenState extends State<SignupScreen> {
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: _emailController,
-                              style: const TextStyle(color: AppColors.textPrimary),
+                              style: const TextStyle(
+                                color: AppColors.textPrimary,
+                              ),
                               decoration: InputDecoration(
-                                hintText: isArabic ? 'أدخل بريدك الإلكتروني' : 'Enter your email',
-                                hintStyle: TextStyle(color: AppColors.textMuted.withOpacity(0.6)),
+                                hintText: isArabic
+                                    ? 'أدخل بريدك الإلكتروني'
+                                    : 'Enter your email',
+                                hintStyle: TextStyle(
+                                  color: AppColors.textMuted.withOpacity(0.6),
+                                ),
                                 filled: true,
                                 fillColor: AppColors.cardBg.withOpacity(0.8),
                                 border: OutlineInputBorder(
@@ -177,9 +189,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: AppColors.accentPrimary, width: 2),
+                                  borderSide: BorderSide(
+                                    color: AppColors.accentPrimary,
+                                    width: 2,
+                                  ),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
                               ),
                               validator: Validators.email,
                             ),
@@ -198,10 +216,16 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextFormField(
                               controller: _passwordController,
                               obscureText: true,
-                              style: const TextStyle(color: AppColors.textPrimary),
+                              style: const TextStyle(
+                                color: AppColors.textPrimary,
+                              ),
                               decoration: InputDecoration(
-                                hintText: isArabic ? 'أدخل كلمة المرور' : 'Enter your password',
-                                hintStyle: TextStyle(color: AppColors.textMuted.withOpacity(0.6)),
+                                hintText: isArabic
+                                    ? 'أدخل كلمة المرور'
+                                    : 'Enter your password',
+                                hintStyle: TextStyle(
+                                  color: AppColors.textMuted.withOpacity(0.6),
+                                ),
                                 filled: true,
                                 fillColor: AppColors.cardBg.withOpacity(0.8),
                                 border: OutlineInputBorder(
@@ -214,9 +238,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: AppColors.accentPrimary, width: 2),
+                                  borderSide: BorderSide(
+                                    color: AppColors.accentPrimary,
+                                    width: 2,
+                                  ),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
                               ),
                               validator: Validators.required,
                             ),
@@ -228,21 +258,34 @@ class _SignupScreenState extends State<SignupScreen> {
                                 gradient: AppColors.primaryGradient,
                                 borderRadius: BorderRadius.circular(16),
                                 boxShadow: const [
-                                  BoxShadow(color: Colors.black26, blurRadius: 12, offset: Offset(0, 4)),
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 12,
+                                    offset: Offset(0, 4),
+                                  ),
                                 ],
                               ),
                               child: ElevatedButton(
                                 onPressed: auth.isLoading
                                     ? null
                                     : () async {
-                                        if (_formKey.currentState?.validate() ?? false) {
-                                          await context.read<AuthProvider>().signup(
+                                        if (_formKey.currentState?.validate() ??
+                                            false) {
+                                          await context
+                                              .read<AuthProvider>()
+                                              .signup(
                                                 _usernameController.text.trim(),
                                                 _emailController.text.trim(),
                                                 _passwordController.text,
                                               );
-                                          if (mounted && context.read<AuthProvider>().isAuthenticated) {
-                                            Navigator.pushReplacementNamed(context, '/home');
+                                          if (mounted &&
+                                              context
+                                                  .read<AuthProvider>()
+                                                  .isAuthenticated) {
+                                            Navigator.pushReplacementNamed(
+                                              context,
+                                              '/home',
+                                            );
                                           }
                                         }
                                       },
@@ -269,7 +312,9 @@ class _SignupScreenState extends State<SignupScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  isArabic ? 'لديك حساب؟ ' : 'Have an account? ',
+                                  isArabic
+                                      ? 'لديك حساب؟ '
+                                      : 'Have an account? ',
                                   style: AppTypography.bodyText.copyWith(
                                     color: AppColors.textSecondary,
                                   ),
@@ -291,13 +336,21 @@ class _SignupScreenState extends State<SignupScreen> {
                               Container(
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: AppColors.accentDanger.withOpacity(0.1),
+                                  color: AppColors.accentDanger.withOpacity(
+                                    0.1,
+                                  ),
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: AppColors.accentDanger.withOpacity(0.3)),
+                                  border: Border.all(
+                                    color: AppColors.accentDanger.withOpacity(
+                                      0.3,
+                                    ),
+                                  ),
                                 ),
                                 child: Text(
                                   auth.errorMessage!,
-                                  style: const TextStyle(color: AppColors.accentDanger),
+                                  style: const TextStyle(
+                                    color: AppColors.accentDanger,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -312,17 +365,74 @@ class _SignupScreenState extends State<SignupScreen> {
                     alignment: Alignment.center,
                     child: FeatureShowcase(
                       isArabic: isArabic,
-                      onCtaPressed: () => Navigator.pushNamed(context, '/auth/signup'),
+                      onCtaPressed: () =>
+                          Navigator.pushNamed(context, '/auth/signup'),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: AppTypography.caption.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: isArabic
+                                ? 'بإنشاء حساب، فإنك توافق على '
+                                : 'By creating an account, you agree to our ',
+                          ),
+                          TextSpan(
+                            text: isArabic
+                                ? 'الشروط والأحكام'
+                                : 'Terms and Conditions',
+                            style: AppTypography.caption.copyWith(
+                              color: AppColors.accentPrimary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () =>
+                                  Navigator.pushNamed(context, '/legal/terms'),
+                          ),
+                          TextSpan(text: isArabic ? ' و ' : ' and '),
+                          TextSpan(
+                            text: isArabic
+                                ? 'سياسة الخصوصية'
+                                : 'Privacy Policy',
+                            style: AppTypography.caption.copyWith(
+                              color: AppColors.accentPrimary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => Navigator.pushNamed(
+                                context,
+                                '/legal/privacy',
+                              ),
+                          ),
+                          TextSpan(text: isArabic ? '. ' : '. '),
+                          TextSpan(
+                            text: isArabic
+                                ? 'جميع المحتويات خاضعة للتراخيص.'
+                                : 'All content is licensed.',
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
+          // Language switcher (top-right) - keep on top for tap handling
+          const Positioned(
+            right: 12,
+            top: 50,
+            child: LanguageSwitcher(iconOnly: true),
+          ),
         ],
       ),
     );
   }
 }
-
-

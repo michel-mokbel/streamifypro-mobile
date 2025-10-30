@@ -26,7 +26,23 @@ class SideDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 4),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+              const SizedBox(height: 8),
+              // App logo at top of sidebar
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Image.asset(
+                    'assets/images/logo1.png',
+                    height: 90,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
               _MenuItem(
                 icon: Icons.home,
                 label: t(context, en: 'Home', ar: 'الرئيسية'),
@@ -113,7 +129,10 @@ class SideDrawer extends StatelessWidget {
                   ],
                 ),
               ),
-              const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
               // Logout pill button
               SizedBox(
                 width: double.infinity,

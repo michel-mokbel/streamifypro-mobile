@@ -63,6 +63,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            // Logo
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: Image.asset(
+                                'assets/images/logo1.png',
+                                height: 110,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                             // Brand name with gradient
                             ShaderMask(
                               shaderCallback: (bounds) => AppColors.primaryGradient.createShader(bounds),
