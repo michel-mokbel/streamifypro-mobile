@@ -1,0 +1,30 @@
+{
+  "appName": "Streamify Pro",
+  "home": "Home",
+  "kids": "Kids",
+  "fitness": "Fitness",
+  "streaming": "Streaming",
+  "games": "Games",
+  "favorites": "Favorites",
+  "watchLater": "Watch Later",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "logout": "Logout"
+  ,"authLoginTitle": "Sign In",
+  "authSignupTitle": "Create Account",
+  "authAppTitle": "Streamify Pro",
+  "authUsernameOrEmail": "Username or Email",
+  "authUsername": "Username",
+  "authEmail": "Email",
+  "authPassword": "Password",
+  "authSignIn": "Sign In",
+  "authSignUp": "Sign Up",
+  "authCreateAccount": "Create Account",
+  "authHaveAccount": "Already have an account?",
+  "authDontHaveAccount": "Don't have an account?",
+  "languageEnglish": "English",
+  "languageArabic": "Arabic",
+  "languageLabel": "Language"
+}
+
+

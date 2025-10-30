@@ -1,0 +1,30 @@
+{
+  "appName": "ستريميفاي برو",
+  "home": "الرئيسية",
+  "kids": "الأطفال",
+  "fitness": "اللياقة",
+  "streaming": "البث",
+  "games": "الألعاب",
+  "favorites": "المفضلة",
+  "watchLater": "مشاهدة لاحقاً",
+  "signIn": "تسجيل الدخول",
+  "signUp": "إنشاء حساب",
+  "logout": "تسجيل الخروج"
+  ,"authLoginTitle": "تسجيل الدخول",
+  "authSignupTitle": "إنشاء حساب",
+  "authAppTitle": "ستريميفاي برو",
+  "authUsernameOrEmail": "اسم المستخدم أو البريد الإلكتروني",
+  "authUsername": "اسم المستخدم",
+  "authEmail": "البريد الإلكتروني",
+  "authPassword": "كلمة المرور",
+  "authSignIn": "تسجيل الدخول",
+  "authSignUp": "إنشاء حساب",
+  "authCreateAccount": "إنشاء حساب",
+  "authHaveAccount": "لديك حساب بالفعل؟",
+  "authDontHaveAccount": "ليس لديك حساب؟",
+  "languageEnglish": "الإنجليزية",
+  "languageArabic": "العربية",
+  "languageLabel": "اللغة"
+}
+
+
