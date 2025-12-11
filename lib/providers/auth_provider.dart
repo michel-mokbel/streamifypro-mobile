@@ -37,6 +37,18 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> loginAsGuest() async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+    try {
+      _currentUser = const User(id: 0, username: 'Guest', email: '');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   Future<void> signup(String username, String email, String password) async {
     _isLoading = true;
     _errorMessage = null;
@@ -82,5 +94,4 @@ class AuthProvider extends ChangeNotifier {
     return names[(m - 1).clamp(0, 11)];
   }
 }
-
 

@@ -9,6 +9,7 @@ import 'providers/favorites_provider.dart';
 import 'providers/language_provider.dart';
 import 'providers/chatbot_provider.dart';
 import 'providers/watchlater_provider.dart';
+import 'providers/remote_config_provider.dart';
 import 'screens/auth/login_screen.dart';
 import 'core/utils/navigation_service.dart';
 import 'widgets/common/chatbot_fab.dart';
@@ -25,6 +26,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FavoritesProvider()..loadFavorites()),
         ChangeNotifierProvider(create: (_) => WatchLaterProvider()..loadWatchLater()),
         ChangeNotifierProvider(create: (_) => ChatbotProvider()),
+        ChangeNotifierProvider(create: (_) => RemoteConfigProvider()),
       ],
       child: Consumer<LanguageProvider>(
         builder: (context, language, _) {
@@ -79,5 +81,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-

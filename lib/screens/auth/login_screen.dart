@@ -9,6 +9,7 @@ import '../../widgets/common/loading_indicator.dart';
 import '../../widgets/common/language_switcher.dart';
 import '../../providers/language_provider.dart';
 import '../../widgets/auth/feature_showcase.dart';
+import '../../providers/remote_config_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,10 +23,19 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  Future<void> _handleGuestLogin(BuildContext context) async {
+    await context.read<AuthProvider>().loginAsGuest();
+    if (!mounted) return;
+    if (context.read<AuthProvider>().isAuthenticated) {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
     final isArabic = context.watch<LanguageProvider>().locale.languageCode == 'ar';
+    final showGuestLogin = context.watch<RemoteConfigProvider>().guestLoginEnabled;
     return Scaffold(
       body: Stack(
         children: [
@@ -231,6 +241,29 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             const SizedBox(height: 20),
+                            if (showGuestLogin) ...[
+                              SizedBox(
+                                height: 52,
+                                child: OutlinedButton.icon(
+                                  onPressed: auth.isLoading ? null : () => _handleGuestLogin(context),
+                                  icon: const Icon(Icons.person_outline, color: Colors.white),
+                                  label: Text(
+                                    isArabic ? 'الدخول كضيف' : 'Login as Guest',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  style: OutlinedButton.styleFrom(
+                                    backgroundColor: AppColors.cardBg.withOpacity(0.85),
+                                    side: BorderSide(color: AppColors.accentPrimary.withOpacity(0.7)),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                            ],
                             // Create Account link
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -328,4 +361,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
