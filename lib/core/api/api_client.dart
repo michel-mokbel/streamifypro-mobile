@@ -18,7 +18,25 @@ class ApiClient {
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     }
-    throw Exception('Login failed (${response.statusCode})');
+    
+    // Try to parse error message from response body
+    String errorMessage;
+    try {
+      final errorBody = json.decode(response.body) as Map<String, dynamic>;
+      if (errorBody.containsKey('error')) {
+        errorMessage = errorBody['error'].toString();
+      } else if (errorBody.containsKey('message')) {
+        errorMessage = errorBody['message'].toString();
+      } else {
+        // JSON parsed but no error/message field, use status code specific messages
+        errorMessage = _getLoginErrorMessage(response.statusCode);
+      }
+    } catch (_) {
+      // If response is not JSON, use status code specific messages
+      errorMessage = _getLoginErrorMessage(response.statusCode);
+    }
+    
+    throw Exception(errorMessage);
   }
 
   Future<Map<String, dynamic>> signup(String username, String email, String password) async {
@@ -30,7 +48,25 @@ class ApiClient {
     if (response.statusCode == 200) {
       return json.decode(response.body) as Map<String, dynamic>;
     }
-    throw Exception('Signup failed (${response.statusCode})');
+    
+    // Try to parse error message from response body
+    String errorMessage;
+    try {
+      final errorBody = json.decode(response.body) as Map<String, dynamic>;
+      if (errorBody.containsKey('error')) {
+        errorMessage = errorBody['error'].toString();
+      } else if (errorBody.containsKey('message')) {
+        errorMessage = errorBody['message'].toString();
+      } else {
+        // JSON parsed but no error/message field, use status code specific messages
+        errorMessage = _getSignupErrorMessage(response.statusCode);
+      }
+    } catch (_) {
+      // If response is not JSON, use status code specific messages
+      errorMessage = _getSignupErrorMessage(response.statusCode);
+    }
+    
+    throw Exception(errorMessage);
   }
 
   Future<void> logout() async {
@@ -64,6 +100,32 @@ class ApiClient {
       return json.decode(response.body) as Map<String, dynamic>;
     }
     throw Exception('Fetch failed (${response.statusCode})');
+  }
+
+  String _getLoginErrorMessage(int statusCode) {
+    switch (statusCode) {
+      case 401:
+        return 'Invalid username or password. Please try again.';
+      case 400:
+        return 'Invalid input. Please check your information and try again.';
+      case 500:
+        return 'Server error. Please try again later.';
+      default:
+        return 'Login failed (${statusCode})';
+    }
+  }
+
+  String _getSignupErrorMessage(int statusCode) {
+    switch (statusCode) {
+      case 409:
+        return 'Username or email already exists. Please try a different one.';
+      case 400:
+        return 'Invalid input. Please check your information and try again.';
+      case 500:
+        return 'Server error. Please try again later.';
+      default:
+        return 'Signup failed (${statusCode})';
+    }
   }
 
   void dispose() {
